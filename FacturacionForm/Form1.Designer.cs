@@ -106,6 +106,7 @@
             textBoxEmailEmisor.Name = "textBoxEmailEmisor";
             textBoxEmailEmisor.Size = new Size(203, 25);
             textBoxEmailEmisor.TabIndex = 9;
+            textBoxEmailEmisor.Text = "demo@gmail.com";
             // 
             // label11
             // 
@@ -122,6 +123,7 @@
             textBoxTelefonoEmisor.Name = "textBoxTelefonoEmisor";
             textBoxTelefonoEmisor.Size = new Size(203, 25);
             textBoxTelefonoEmisor.TabIndex = 3;
+            textBoxTelefonoEmisor.Text = "76230990";
             // 
             // label10
             // 
@@ -138,6 +140,7 @@
             textBoxNRCEmisor.Name = "textBoxNRCEmisor";
             textBoxNRCEmisor.Size = new Size(129, 25);
             textBoxNRCEmisor.TabIndex = 7;
+            textBoxNRCEmisor.Text = "3477200";
             // 
             // label8
             // 
@@ -154,6 +157,7 @@
             textBoxNitEmisor.Name = "textBoxNitEmisor";
             textBoxNitEmisor.Size = new Size(167, 25);
             textBoxNitEmisor.TabIndex = 5;
+            textBoxNitEmisor.Text = "04352208241018";
             // 
             // label7
             // 
@@ -170,6 +174,7 @@
             textBoxDireccionEmisor.Name = "textBoxDireccionEmisor";
             textBoxDireccionEmisor.Size = new Size(351, 25);
             textBoxDireccionEmisor.TabIndex = 11;
+            textBoxDireccionEmisor.Text = "Chalatenango";
             // 
             // label9
             // 
@@ -186,6 +191,7 @@
             textBoxNombreEmisor.Name = "textBoxNombreEmisor";
             textBoxNombreEmisor.Size = new Size(351, 25);
             textBoxNombreEmisor.TabIndex = 1;
+            textBoxNombreEmisor.Text = "KEYJOTECH DEVELOPMENT, SOCIEDAD POR ACCIONES SIMPLIFICADA DE CAPITAL VARIABLE";
             // 
             // label6
             // 
