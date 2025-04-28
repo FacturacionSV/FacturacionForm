@@ -2,14 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Json;
+using System.Net.Mail;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using FacturacionForm.BaseDeDatos;
 using FacturacionForm.entidades;
 using FacturacionForm.utilidades;
-
+using MailKit.Net.Smtp;
+using MimeKit;
+using MimeKit.Text;
+using System;
+using System.IO;
+using System.ComponentModel;
+using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 namespace FacturacionForm.Controladores
 {
     public class ProcesarDTECF
@@ -226,6 +234,36 @@ namespace FacturacionForm.Controladores
                     ? sello.GetString()
                     : null;
 
+                //Guardar en la base de datos
+
+                ManejadorBD manejadorBD = new ManejadorBD();
+                manejadorBD.InsertarVenta(dteJson,numeroControl,codigoGeneracion.ToString().ToUpper(), selloRecepcion,DateTime.Now,"01");
+
+                //PDF
+                var generador = new GeneradorDocumentos.GeneradorPdfDte();
+
+                try
+                {
+                    // Generar el PDF en memoria
+                    byte[] pdfBytes = generador.GenerarPdfEnMemoria(dteJson,selloRecepcion);
+
+                    // Opciones de uso:
+
+                    // 1. Abrir el PDF en el navegador
+                    generador.AbrirPdfEnNavegador(pdfBytes);
+
+                    // 2. Guardar el PDF en un archivo
+                    File.WriteAllBytes("DocumentoDTE.pdf", pdfBytes);
+
+                    // 3. Si quieres enviarlo por correo electrónico
+                    EnviadorCorreos.EnviarFacturaElectronica(pdfBytes, dteJson,Receptor.Email);
+
+                    Console.WriteLine("PDF generado exitosamente");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error al generar el PDF: {ex.Message}");
+                }
                 MessageBox.Show("El DTE se envio exitosamente, sello de recibido " + selloRecepcion);
             }
 
@@ -237,5 +275,89 @@ namespace FacturacionForm.Controladores
             return true;
         }
 
+       
+
+
+
+public static class EnviadorCorreos
+    {
+        public static void EnviarFacturaElectronica(byte[] pdfFactura, string jsonFactura, string correoDestinatario)
+        {
+            try
+            {
+                // Crear el mensaje MIME
+                var message = new MimeMessage();
+
+                // Configurar remitente (FROM)
+                message.From.Add(new MailboxAddress(
+                    name: "Sistema de Facturación Electrónica",
+                    address: "factura@dteelsalvador.info"));
+
+                // Configurar destinatario (TO)
+                message.To.Add(new MailboxAddress("", correoDestinatario));
+
+                // Asunto (SUBJECT)
+                message.Subject = "Documento Tributario Electrónico - Factura";
+
+                // Construir el cuerpo del mensaje
+                var bodyBuilder = new BodyBuilder();
+
+                // Cuerpo del mensaje en texto plano
+                bodyBuilder.TextBody = @"Estimado cliente,
+
+Adjunto encontrará su factura electrónica en formato PDF y JSON.
+
+Este es un mensaje automático, por favor no responda.
+
+Atentamente,
+Sistema de Facturación Electrónica";
+
+                // Adjuntar PDF (ATTACHMENT)
+                bodyBuilder.Attachments.Add(
+                    fileName: "FacturaElectronica.pdf",
+                    data: pdfFactura,
+                    contentType: new ContentType("application", "pdf"));
+
+                // Adjuntar JSON (convertir string a bytes)
+                byte[] jsonBytes = Encoding.UTF8.GetBytes(jsonFactura);
+                bodyBuilder.Attachments.Add(
+                    fileName: "FacturaElectronica.json",
+                    data: jsonBytes,
+                    contentType: new ContentType("application", "json"));
+
+                message.Body = bodyBuilder.ToMessageBody();
+
+                // Configurar y enviar el correo
+                using (var smtpClient = new SmtpClient())
+                {
+                    // Conectar al servidor SMTP (SSL)
+                    smtpClient.Connect(
+                        host: "mail.privateemail.com",
+                        port: 465,
+                        options: MailKit.Security.SecureSocketOptions.SslOnConnect);
+
+                    // Autenticarse (LOGIN)
+                    smtpClient.Authenticate(
+                        userName: "factura@dteelsalvador.info",
+                        password: "Cuenta2025");
+
+                    // Enviar el mensaje (SEND)
+                    smtpClient.Send(message);
+
+                    // Desconectar (QUIT)
+                    smtpClient.Disconnect(quit: true);
+                }
+
+                Console.WriteLine($"Correo enviado exitosamente a: {correoDestinatario}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al enviar correo: {ex.Message}");
+                // Relanzar la excepción para manejo externo
+                throw new InvalidOperationException("Error al enviar la factura por correo", ex);
+            }
+        }
     }
+
+}
 }

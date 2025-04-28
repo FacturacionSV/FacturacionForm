@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
             textBoxEmailEmisor = new TextBox();
             label11 = new Label();
@@ -74,6 +74,7 @@
             label17 = new Label();
             radioButtonCF = new RadioButton();
             radioButtonCFF = new RadioButton();
+            button2 = new Button();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             groupBox2.SuspendLayout();
@@ -217,9 +218,9 @@
             // 
             // cantidad
             // 
-            dataGridViewCellStyle1.Format = "N0";
-            dataGridViewCellStyle1.NullValue = null;
-            cantidad.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle10.Format = "N0";
+            dataGridViewCellStyle10.NullValue = null;
+            cantidad.DefaultCellStyle = dataGridViewCellStyle10;
             cantidad.HeaderText = "CANTIDAD";
             cantidad.Name = "cantidad";
             // 
@@ -231,18 +232,18 @@
             // 
             // precio
             // 
-            dataGridViewCellStyle2.Format = "C2";
-            dataGridViewCellStyle2.NullValue = null;
-            precio.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle11.Format = "C2";
+            dataGridViewCellStyle11.NullValue = null;
+            precio.DefaultCellStyle = dataGridViewCellStyle11;
             precio.HeaderText = "PRECIO UNITARIO";
             precio.Name = "precio";
             precio.Width = 200;
             // 
             // total
             // 
-            dataGridViewCellStyle3.Format = "C2";
-            dataGridViewCellStyle3.NullValue = null;
-            total.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle12.Format = "C2";
+            dataGridViewCellStyle12.NullValue = null;
+            total.DefaultCellStyle = dataGridViewCellStyle12;
             total.HeaderText = "TOTAL";
             total.Name = "total";
             // 
@@ -372,7 +373,6 @@
             textBoxEmailReceptor.Name = "textBoxEmailReceptor";
             textBoxEmailReceptor.Size = new Size(203, 25);
             textBoxEmailReceptor.TabIndex = 9;
-            textBoxEmailReceptor.Text = "cliente@gmail.com";
             // 
             // label12
             // 
@@ -490,11 +490,22 @@
             radioButtonCFF.UseVisualStyleBackColor = true;
             radioButtonCFF.CheckedChanged += radioButtonCFF_CheckedChanged;
             // 
+            // button2
+            // 
+            button2.Location = new Point(659, 187);
+            button2.Name = "button2";
+            button2.Size = new Size(187, 23);
+            button2.TabIndex = 14;
+            button2.Text = "Consultar DTE Enviados";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1268, 538);
+            Controls.Add(button2);
             Controls.Add(radioButtonCFF);
             Controls.Add(radioButtonCF);
             Controls.Add(button1);
@@ -567,5 +578,6 @@
         private DataGridViewTextBoxColumn total;
         private RadioButton radioButtonCF;
         private RadioButton radioButtonCFF;
+        private Button button2;
     }
 }

@@ -127,6 +127,12 @@ namespace FacturacionForm
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (textBoxEmailReceptor.Text.Length == 0)
+            {
+                MessageBox.Show("Escriba el EMAIL del receptor");
+                textBoxEmailReceptor.Focus();
+                return;
+            }
             //EXTRAER LOS DATOS 
             List<DetalleVenta> listaDetallesVenta = new List<DetalleVenta>();
 
@@ -172,7 +178,7 @@ namespace FacturacionForm
                 ProcesarDTECCF procesarDTECCF = new ProcesarDTECCF(listaDetallesVenta, emisor, receptor);
                 procesarDTECCF.EnviarDTE();
             }
-                
+
 
         }
 
@@ -184,6 +190,12 @@ namespace FacturacionForm
         private void radioButtonCF_CheckedChanged(object sender, EventArgs e)
         {
             ActualizarTotal();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            FConsulta fConsulta = new FConsulta();
+            fConsulta.Show();
         }
     }
 }

@@ -7,8 +7,11 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using FacturacionForm.BaseDeDatos;
 using FacturacionForm.entidades;
 using FacturacionForm.utilidades;
+using GeneradorDocumentos;
+using static FacturacionForm.Controladores.ProcesarDTECF;
 
 namespace FacturacionForm.Controladores
 {
@@ -236,12 +239,44 @@ namespace FacturacionForm.Controladores
                 var selloRecepcion = resultado.TryGetProperty("selloRecibido", out var sello)
                     ? sello.GetString()
                     : null;
+                //Guardar en base de datos
+                ManejadorBD manejadorBD = new ManejadorBD();
+                manejadorBD.InsertarVenta(dteJson, numeroControl, codigoGeneracion.ToString().ToUpper(), selloRecepcion, DateTime.Now, "03");
+
+
+                //PDF
+                var generador = new GeneradorPdfDte03();
+
+                try
+                {
+                    // Generar el PDF en memoria
+                    byte[] pdfBytes = generador.GenerarPdfEnMemoria(dteJson, selloRecepcion);
+
+                    // Opciones de uso:
+
+                    // 1. Abrir el PDF en el navegador
+                    generador.AbrirPdfEnNavegador(pdfBytes);
+
+                    // 2. Guardar el PDF en un archivo
+                    File.WriteAllBytes("DocumentoDTE.pdf", pdfBytes);
+
+                    // 3. Si quieres enviarlo por correo electrónico
+                    EnviadorCorreos.EnviarFacturaElectronica(pdfBytes, dteJson, Receptor.Email);
+
+                    Console.WriteLine("PDF generado exitosamente");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error al generar el PDF: {ex.Message}");
+                }
+
 
                 MessageBox.Show("El DTE se envio exitosamente, sello de recibido " + selloRecepcion);
+
             }
 
 
-
+            
 
 
 
