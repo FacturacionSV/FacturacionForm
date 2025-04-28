@@ -223,7 +223,7 @@ namespace FacturacionForm
 
                     // Actualizar los datos del proceso de anulacion
                     ManejadorBD manejadorBD = new ManejadorBD();
-                    manejadorBD.ActualizarAnulacion((int)venta.Id, selloRecibido, jsonString2);
+                    manejadorBD.ActualizarAnulacion((int)venta.Id, selloRecibido, jsonFormateado);
 
                     MessageBox.Show("Factura anulada correctamente", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
