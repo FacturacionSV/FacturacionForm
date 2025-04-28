@@ -55,7 +55,9 @@ namespace FacturacionForm.BaseDeDatos
                         CodigoGeneracion TEXT NOT NULL,
                         SelloRecepcion TEXT,
                         Fecha TEXT NOT NULL,
-                        TipoDTE TEXT NOT NULL
+                        TipoDTE TEXT NOT NULL,
+                          SelloRecepcionAnulacion TEXT,
+                          jsonAnulacion TEXT
                     );";
                 comando.ExecuteNonQuery();
             }
@@ -255,6 +257,24 @@ namespace FacturacionForm.BaseDeDatos
 
                 int filasAfectadas = comando.ExecuteNonQuery();
                 return filasAfectadas > 0;
+            }
+        }
+        public void ActualizarAnulacion(int id, string selloRecepcionAnulacion, string jsonAnulacion)
+        {
+            using (SQLiteCommand comando = _conexion.CreateCommand())
+            {
+                comando.CommandText = @"
+            UPDATE Ventas 
+            SET SelloRecepcionAnulacion = @selloRecepcionAnulacion,
+                jsonAnulacion = @jsonAnulacion
+            WHERE Id = @id";
+
+                // Parámetros para evitar SQL injection
+                comando.Parameters.AddWithValue("@id", id);
+                comando.Parameters.AddWithValue("@selloRecepcionAnulacion", selloRecepcionAnulacion);
+                comando.Parameters.AddWithValue("@jsonAnulacion", jsonAnulacion);
+
+                comando.ExecuteNonQuery();
             }
         }
 
