@@ -108,18 +108,21 @@ namespace FacturacionForm
             };
 
             // Sección de Emisor
+            var emisorJson = jsonObj["emisor"];
+            string procesarSiNulo(JToken token) => token?.Type == JTokenType.Null ? null : token?.ToString();
+
             var emisor = new
             {
-                nit = jsonObj["emisor"]["nit"].ToString(),
-                nombre = jsonObj["emisor"]["nombre"].ToString(),
-                tipoEstablecimiento = jsonObj["emisor"]["tipoEstablecimiento"].ToString(),
-                nomEstablecimiento = jsonObj["emisor"]["nombreComercial"].ToString(),
-                codEstableMH = string.IsNullOrEmpty(jsonObj["emisor"]["codEstableMH"]?.ToString()) ? null : jsonObj["emisor"]["codEstableMH"].ToString(),
-                codEstable = string.IsNullOrEmpty(jsonObj["emisor"]["codEstable"]?.ToString()) ? null : jsonObj["emisor"]["codEstable"].ToString(),
-                codPuntoVentaMH = string.IsNullOrEmpty(jsonObj["emisor"]["codPuntoVentaMH"]?.ToString()) ? null : jsonObj["emisor"]["codPuntoVentaMH"].ToString(),
-                codPuntoVenta = string.IsNullOrEmpty(jsonObj["emisor"]["codPuntoVenta"]?.ToString()) ? null : jsonObj["emisor"]["codPuntoVenta"].ToString(),
-                telefono = jsonObj["emisor"]["telefono"].ToString(),
-                correo = jsonObj["emisor"]["correo"].ToString()
+                nit = emisorJson["nit"].ToString(),
+                nombre = emisorJson["nombre"].ToString(),
+                tipoEstablecimiento = emisorJson["tipoEstablecimiento"].ToString(),
+                nomEstablecimiento = emisorJson["nombreComercial"].ToString(),
+                codEstableMH = procesarSiNulo(emisorJson["codEstableMH"]),
+                codEstable = procesarSiNulo(emisorJson["codEstable"]),
+                codPuntoVentaMH = procesarSiNulo(emisorJson["codPuntoVentaMH"]),
+                codPuntoVenta = procesarSiNulo(emisorJson["codPuntoVenta"]),
+                telefono = emisorJson["telefono"].ToString(),
+                correo = emisorJson["correo"].ToString()
             };
             string tipoDocumento = (string)null; // asumiendo que es otro documento
             string numDocumento = string.IsNullOrEmpty(jsonObj["receptor"]["nit"]?.ToString()) ? null : jsonObj["receptor"]["nit"].ToString();
