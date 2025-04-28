@@ -12,7 +12,7 @@ using FacturacionForm.utilidades;
 
 namespace FacturacionForm.Controladores
 {
-    public class ProcesarDTECF
+    public class ProcesarDTECCF
     {
 
         public Emisor Emisor { get; set; }
@@ -20,7 +20,7 @@ namespace FacturacionForm.Controladores
         public List<DetalleVenta> DetallesVenta { get; set; }
 
 
-        public ProcesarDTECF(List<DetalleVenta> detalles, Emisor emisor, Receptor receptor)
+        public ProcesarDTECCF(List<DetalleVenta> detalles, Emisor emisor, Receptor receptor)
         {
             Emisor = emisor;
             Receptor = receptor;
@@ -37,15 +37,15 @@ namespace FacturacionForm.Controladores
             int i = random.Next(1, 100001); // Genera un número aleatorio entre 1 y 100000
             string correlativo = i.ToString().PadLeft(15, '0'); // Rellena con ceros a la izquierda para que tenga 15 caracteres
             // Generar número de control
-            string numeroControl = "DTE-" + "01" + "-" + "ABCD1234" + "-" + correlativo;
+            string numeroControl = "DTE-" + "03" + "-" + "ABCD1234" + "-" + correlativo;
 
             // ESQUEMA PARA UN DTE DE CONSUMIDOR FINAL DTE 01
 
             var identificacion = new
             {
-                version = 1,
+                version = 3,
                 ambiente = "00",
-                tipoDte = "01",
+                tipoDte = "03",
                 numeroControl = numeroControl,
                 codigoGeneracion = codigoGeneracion.ToString().ToUpper(),
                 tipoModelo = 1,
@@ -56,6 +56,7 @@ namespace FacturacionForm.Controladores
                 horEmi = DateTime.Now.ToString("HH:mm:ss"),
                 tipoMoneda = "USD"
             };
+            
 
             // Crear el objeto para el emisor
             var emisor = new
@@ -84,12 +85,12 @@ namespace FacturacionForm.Controladores
             // Crear el objeto para el receptor
             var receptor = new
             {
-                tipoDocumento = "37",
-                numDocumento = (string)null,
-                nrc = (string)null,
+                nit = "06143110171029",
+                nrc = "2649043",
                 nombre = Receptor.NombreComercial,
-                codActividad = (string)null,
-                descActividad = (string)null,
+                nombreComercial = Receptor.NombreComercial,
+                codActividad = "01460",
+                descActividad = "EXTRACCION DE PIEDRA, ARENA Y ACILLA",
                 direccion = new
                 {
                     departamento = Receptor.CodigoDepartamento,
@@ -117,22 +118,22 @@ namespace FacturacionForm.Controladores
                 ventaNoSuj = 0.0,
                 ventaExenta = 0.0,
                 ventaGravada = item.Total,
-                tributos = (string)null,
+                tributos = new[] { "20" },
                 psv = item.Precio,
-                noGravado = 0.0,
-                ivaItem = Math.Round(item.Total-(item.Total/1.13m),6)
+                noGravado = 0.0
             })
             .ToArray();
-
+            
             // Crear el resumen
             // Calcular las variables primero
             decimal totalVenta = DetallesVenta.Sum(x => x.Total);
+            decimal totalIva = Math.Round((totalVenta * 0.13m), 2);
             decimal subTotalVentas = totalVenta;
-            decimal subTotal = totalVenta;
-            decimal montoTotalOperacion = totalVenta;
-            decimal totalPagar = totalVenta;
-            string totalLetras = new Conversor().ConvertirNumeroALetras(totalVenta);
-            decimal totalIva = Math.Round(totalVenta - (totalVenta / 1.13m), 2);
+            decimal subTotal = totalVenta+totalIva;
+            decimal montoTotalOperacion = totalVenta+totalIva;
+            decimal totalPagar = montoTotalOperacion;
+            string totalLetras = new Conversor().ConvertirNumeroALetras(montoTotalOperacion);
+            
 
             // Crear el objeto resumen con las variables
             var resumen = new
@@ -146,15 +147,23 @@ namespace FacturacionForm.Controladores
                 descuGravada = 0.0,
                 porcentajeDescuento = 0,
                 totalDescu = 0.0,
-                tributos = (string)null,
-                subTotal = subTotal,
+                tributos = new[]
+                   {
+                        new
+                        {
+                            codigo = "20",
+                            descripcion = "Impuesto al Valor Agregado 13%",
+                            valor = totalIva
+                        }
+                    },
+                subTotal = subTotalVentas,
                 ivaRete1 = 0.00,
+                ivaPerci1 = 0.00,
                 reteRenta = 0.0,
                 montoTotalOperacion = montoTotalOperacion,
                 totalNoGravado = 0.0,
                 totalPagar = totalPagar,
                 totalLetras = totalLetras,
-                totalIva = totalIva,
                 saldoFavor = 0.0,
                 condicionOperacion = 1,
                 pagos = new[]
@@ -171,8 +180,10 @@ namespace FacturacionForm.Controladores
                     numPagoElectronico = "0"
                 };
 
-            // Crear la extensión
-            var extension = new
+            
+
+                // Crear la extensión
+                var extension = new
             {
                 nombEntrega = "ENCARGADO 1",
                 docuEntrega = "00000000-0",
@@ -207,10 +218,10 @@ namespace FacturacionForm.Controladores
                 DteJson = dteJson,
                 Nit = Emisor.NIT,
                 PasswordPrivado = Emisor.Clave,
-                TipoDte = "01",
+                TipoDte = "03",
                 CodigoGeneracion = codigoGeneracion,
                 NumControl = numeroControl,
-                VersionDte = 1
+                VersionDte = 3
             };
             using (HttpClient client = new HttpClient())
             {

@@ -72,6 +72,8 @@
             label16 = new Label();
             textBoxNombreReceptor = new TextBox();
             label17 = new Label();
+            radioButtonCF = new RadioButton();
+            radioButtonCFF = new RadioButton();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             groupBox2.SuspendLayout();
@@ -370,6 +372,7 @@
             textBoxEmailReceptor.Name = "textBoxEmailReceptor";
             textBoxEmailReceptor.Size = new Size(203, 25);
             textBoxEmailReceptor.TabIndex = 9;
+            textBoxEmailReceptor.Text = "cliente@gmail.com";
             // 
             // label12
             // 
@@ -386,6 +389,7 @@
             textBox1TelReceptor.Name = "textBox1TelReceptor";
             textBox1TelReceptor.Size = new Size(203, 25);
             textBox1TelReceptor.TabIndex = 3;
+            textBox1TelReceptor.Text = "78451269";
             // 
             // label13
             // 
@@ -434,6 +438,7 @@
             textBoxDireccionReceptor.Name = "textBoxDireccionReceptor";
             textBoxDireccionReceptor.Size = new Size(351, 25);
             textBoxDireccionReceptor.TabIndex = 11;
+            textBoxDireccionReceptor.Text = "Chalatenango";
             // 
             // label16
             // 
@@ -450,6 +455,7 @@
             textBoxNombreReceptor.Name = "textBoxNombreReceptor";
             textBoxNombreReceptor.Size = new Size(351, 25);
             textBoxNombreReceptor.TabIndex = 1;
+            textBoxNombreReceptor.Text = "Cliente casual";
             // 
             // label17
             // 
@@ -460,11 +466,37 @@
             label17.TabIndex = 0;
             label17.Text = "Nombre";
             // 
+            // radioButtonCF
+            // 
+            radioButtonCF.AutoSize = true;
+            radioButtonCF.Checked = true;
+            radioButtonCF.Location = new Point(31, 189);
+            radioButtonCF.Name = "radioButtonCF";
+            radioButtonCF.Size = new Size(39, 19);
+            radioButtonCF.TabIndex = 13;
+            radioButtonCF.TabStop = true;
+            radioButtonCF.Text = "CF";
+            radioButtonCF.UseVisualStyleBackColor = true;
+            radioButtonCF.CheckedChanged += radioButtonCF_CheckedChanged;
+            // 
+            // radioButtonCFF
+            // 
+            radioButtonCFF.AutoSize = true;
+            radioButtonCFF.Location = new Point(76, 189);
+            radioButtonCFF.Name = "radioButtonCFF";
+            radioButtonCFF.Size = new Size(47, 19);
+            radioButtonCFF.TabIndex = 13;
+            radioButtonCFF.Text = "CCF";
+            radioButtonCFF.UseVisualStyleBackColor = true;
+            radioButtonCFF.CheckedChanged += radioButtonCFF_CheckedChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1268, 538);
+            Controls.Add(radioButtonCFF);
+            Controls.Add(radioButtonCF);
             Controls.Add(button1);
             Controls.Add(textBoxTotal);
             Controls.Add(label5);
@@ -533,5 +565,7 @@
         private DataGridViewTextBoxColumn descripcion;
         private DataGridViewTextBoxColumn precio;
         private DataGridViewTextBoxColumn total;
+        private RadioButton radioButtonCF;
+        private RadioButton radioButtonCFF;
     }
 }

@@ -99,11 +99,24 @@ namespace FacturacionForm
                 }
 
                 textBoxSumas.Text = totalGeneral.ToString();
+                textBoxTotal.Text = totalGeneral.ToString();
+                textBoxIva.Text = 0.ToString();
+                if (radioButtonCFF.Checked)
+                {
+                    decimal iva = totalGeneral * 0.13m;
+                    textBoxSumas.Text = totalGeneral.ToString();
+                    textBoxIva.Text = iva.ToString();
+                    textBoxTotal.Text = (totalGeneral + iva).ToString();
+                }
+
+
             }
             catch (Exception)
             {
                 decimal totalGeneral = 0;
                 textBoxSumas.Text = totalGeneral.ToString();
+                textBoxTotal.Text = totalGeneral.ToString();
+                textBoxIva.Text = totalGeneral.ToString();
             }
         }
 
@@ -132,12 +145,12 @@ namespace FacturacionForm
 
             //EMISOR
             Emisor emisor = new Emisor();
-            emisor.NombreComercial=textBoxNombreEmisor.Text;
-            emisor.Telefono=textBoxTelefonoEmisor.Text;
-            emisor.Email=textBoxEmailEmisor.Text;
-            emisor.Direccion=textBoxDireccionEmisor.Text;
-            emisor.NIT=textBoxNitEmisor.Text;
-            emisor.NRC=textBoxNRCEmisor.Text;
+            emisor.NombreComercial = textBoxNombreEmisor.Text;
+            emisor.Telefono = textBoxTelefonoEmisor.Text;
+            emisor.Email = textBoxEmailEmisor.Text;
+            emisor.Direccion = textBoxDireccionEmisor.Text;
+            emisor.NIT = textBoxNitEmisor.Text;
+            emisor.NRC = textBoxNRCEmisor.Text;
 
             //Receptor
             Receptor receptor = new Receptor();
@@ -149,10 +162,28 @@ namespace FacturacionForm
             receptor.NRC = textBoxNRCReceptor.Text;
 
 
+            if (radioButtonCF.Checked)
+            {
+                ProcesarDTECF procesarDTECF = new ProcesarDTECF(listaDetallesVenta, emisor, receptor);
+                procesarDTECF.EnviarDTE();
+            }
+            else
+            {
+                ProcesarDTECCF procesarDTECCF = new ProcesarDTECCF(listaDetallesVenta, emisor, receptor);
+                procesarDTECCF.EnviarDTE();
+            }
+                
 
-            ProcesarDTECF procesarDTECF = new ProcesarDTECF(listaDetallesVenta, emisor, receptor);
-            procesarDTECF.EnviarDTE();
+        }
 
+        private void radioButtonCFF_CheckedChanged(object sender, EventArgs e)
+        {
+            ActualizarTotal();
+        }
+
+        private void radioButtonCF_CheckedChanged(object sender, EventArgs e)
+        {
+            ActualizarTotal();
         }
     }
 }
