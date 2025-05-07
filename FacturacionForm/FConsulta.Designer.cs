@@ -145,6 +145,7 @@
             Controls.Add(button1);
             Controls.Add(dataGridView1);
             Name = "FConsulta";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FConsulta";
             Load += FConsulta_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();

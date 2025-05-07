@@ -16,11 +16,11 @@ namespace FacturacionForm.entidades
         public string Email { get; set; }
         public string CodigoDepartamento { get; set; } = "04";
         public string CodigoDistrito { get; set; } = "35";
-        public string CodigoActividadEconomica { get; set; } = "46510";
+        public string CodigoActividadEconomica { get; set; } = "62090";
         public string ActividadEconomica { get; set; } = "VENTA AL POR MAYOR DE COMPUTADORAS, EQUIPO PERIFERICO Y PROGRAMAS INFORMATICOS";
-
-        public string Clave { get; set; } = "Keyjo@Pri9";
-        public string ClaveApi { get; set; } = "Keyjo@2025";
+        public string usuariofirmador = "";
+        public string Clave { get; set; } = "";
+        public string ClaveApi { get; set; } = "";
 
     }
 }

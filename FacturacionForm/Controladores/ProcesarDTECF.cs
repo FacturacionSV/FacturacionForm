@@ -223,7 +223,7 @@ namespace FacturacionForm.Controladores
             using (HttpClient client = new HttpClient())
             {
                 // LLAMADA ÚNICA
-                var response = client.PostAsJsonAsync("http://207.58.175.219:7122/api/procesar-dte", requestUnificado).Result;
+                var response = client.PostAsJsonAsync("https://localhost:7122/api/procesar-dte", requestUnificado).Result;
                 var responseData = response.Content.ReadAsStringAsync().Result;
 
                 if (!response.IsSuccessStatusCode)
@@ -339,7 +339,7 @@ Sistema de Facturación Electrónica";
                     // Autenticarse (LOGIN)
                     smtpClient.Authenticate(
                         userName: "factura@dteelsalvador.info",
-                        password: "Cuenta2025");
+                        password: "");
 
                     // Enviar el mensaje (SEND)
                     smtpClient.Send(message);

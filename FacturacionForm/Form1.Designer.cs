@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
             textBoxEmailEmisor = new TextBox();
             label11 = new Label();
@@ -143,7 +143,7 @@
             textBoxNRCEmisor.Name = "textBoxNRCEmisor";
             textBoxNRCEmisor.Size = new Size(129, 25);
             textBoxNRCEmisor.TabIndex = 7;
-            textBoxNRCEmisor.Text = "3477200";
+            textBoxNRCEmisor.Text = "2962736";
             // 
             // label8
             // 
@@ -160,7 +160,7 @@
             textBoxNitEmisor.Name = "textBoxNitEmisor";
             textBoxNitEmisor.Size = new Size(167, 25);
             textBoxNitEmisor.TabIndex = 5;
-            textBoxNitEmisor.Text = "04352208241018";
+            textBoxNitEmisor.Text = "049945205";
             // 
             // label7
             // 
@@ -194,7 +194,7 @@
             textBoxNombreEmisor.Name = "textBoxNombreEmisor";
             textBoxNombreEmisor.Size = new Size(351, 25);
             textBoxNombreEmisor.TabIndex = 1;
-            textBoxNombreEmisor.Text = "KEYJOTECH DEVELOPMENT, SOCIEDAD POR ACCIONES SIMPLIFICADA DE CAPITAL VARIABLE";
+            textBoxNombreEmisor.Text = "Carlos Ramos";
             // 
             // label6
             // 
@@ -218,9 +218,9 @@
             // 
             // cantidad
             // 
-            dataGridViewCellStyle10.Format = "N0";
-            dataGridViewCellStyle10.NullValue = null;
-            cantidad.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle1.Format = "N0";
+            dataGridViewCellStyle1.NullValue = null;
+            cantidad.DefaultCellStyle = dataGridViewCellStyle1;
             cantidad.HeaderText = "CANTIDAD";
             cantidad.Name = "cantidad";
             // 
@@ -232,18 +232,18 @@
             // 
             // precio
             // 
-            dataGridViewCellStyle11.Format = "C2";
-            dataGridViewCellStyle11.NullValue = null;
-            precio.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle2.Format = "C2";
+            dataGridViewCellStyle2.NullValue = null;
+            precio.DefaultCellStyle = dataGridViewCellStyle2;
             precio.HeaderText = "PRECIO UNITARIO";
             precio.Name = "precio";
             precio.Width = 200;
             // 
             // total
             // 
-            dataGridViewCellStyle12.Format = "C2";
-            dataGridViewCellStyle12.NullValue = null;
-            total.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = null;
+            total.DefaultCellStyle = dataGridViewCellStyle3;
             total.HeaderText = "TOTAL";
             total.Name = "total";
             // 
@@ -373,6 +373,7 @@
             textBoxEmailReceptor.Name = "textBoxEmailReceptor";
             textBoxEmailReceptor.Size = new Size(203, 25);
             textBoxEmailReceptor.TabIndex = 9;
+            textBoxEmailReceptor.Text = "jguardadosv@gmail.com";
             // 
             // label12
             // 
@@ -522,6 +523,7 @@
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Name = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Facturación";
             Load += Form1_Load;
             groupBox1.ResumeLayout(false);
