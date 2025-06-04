@@ -17,9 +17,10 @@ namespace FacturacionForm.BaseDeDatos
 
         public ManejadorBD()
         {
-            // Establecer la ruta de la base de datos en la carpeta de documentos temporales
-            string carpetaTemporal = Path.GetTempPath();
-            _rutaBaseDatos = Path.Combine(carpetaTemporal, "GestionVentas.db");
+            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string appFolder = Path.Combine(appDataPath, "GestionVentas");
+            Directory.CreateDirectory(appFolder); // ¡Crear la carpeta si no existe!
+            _rutaBaseDatos = Path.Combine(appFolder, "GestionVentas.db");
 
             InicializarBaseDatos();
         }
@@ -57,10 +58,32 @@ namespace FacturacionForm.BaseDeDatos
                         Fecha TEXT NOT NULL,
                         TipoDTE TEXT NOT NULL,
                           SelloRecepcionAnulacion TEXT,
-                          jsonAnulacion TEXT
+                          jsonAnulacion TEXT,
+                        cliente TEXT
                     );";
                 comando.ExecuteNonQuery();
+
+                // Crear tabla de Correlativos
+                comando.CommandText = @"
+        CREATE TABLE IF NOT EXISTS Correlativos (
+            Id INTEGER PRIMARY KEY AUTOINCREMENT,
+            TipoDTE TEXT NOT NULL UNIQUE,
+            NumeroActual INTEGER NOT NULL DEFAULT 0,
+            FechaCreacion TEXT NOT NULL,
+            FechaUltimaActualizacion TEXT NOT NULL
+        );";
+                comando.ExecuteNonQuery();
+
+                // Insertar valores iniciales para los correlativos
+                comando.CommandText = @"
+        INSERT OR IGNORE INTO Correlativos (TipoDTE, NumeroActual, FechaCreacion, FechaUltimaActualizacion)
+        VALUES 
+            ('CF', 0, datetime('now'), datetime('now')),
+            ('CFF', 0, datetime('now'), datetime('now'));";
+                comando.ExecuteNonQuery();
+
             }
+
         }
 
         public void CerrarConexion()
@@ -73,13 +96,13 @@ namespace FacturacionForm.BaseDeDatos
         }
 
         public long InsertarVenta(string documentoJson, string numeroControl, string codigoGeneracion,
-                                 string selloRecepcion, DateTime fecha, string tipoDTE)
+                                 string selloRecepcion, DateTime fecha, string tipoDTE,string cliente)
         {
             using (SQLiteCommand comando = _conexion.CreateCommand())
             {
                 comando.CommandText = @"
-                    INSERT INTO Ventas (DocumentoJson, NumeroControl, CodigoGeneracion, SelloRecepcion, Fecha, TipoDTE)
-                    VALUES (@documentoJson, @numeroControl, @codigoGeneracion, @selloRecepcion, @fecha, @tipoDTE);
+                    INSERT INTO Ventas (DocumentoJson, NumeroControl, CodigoGeneracion, SelloRecepcion, Fecha, TipoDTE,cliente)
+                    VALUES (@documentoJson, @numeroControl, @codigoGeneracion, @selloRecepcion, @fecha, @tipoDTE,@cliente);
                     SELECT last_insert_rowid();";
 
                 comando.Parameters.AddWithValue("@documentoJson", documentoJson);
@@ -88,6 +111,7 @@ namespace FacturacionForm.BaseDeDatos
                 comando.Parameters.AddWithValue("@selloRecepcion", selloRecepcion);
                 comando.Parameters.AddWithValue("@fecha", fecha.ToString("yyyy-MM-dd HH:mm:ss"));
                 comando.Parameters.AddWithValue("@tipoDTE", tipoDTE);
+                comando.Parameters.AddWithValue("@cliente", cliente);
 
                 return (long)comando.ExecuteScalar();
             }
@@ -113,7 +137,8 @@ namespace FacturacionForm.BaseDeDatos
                             CodigoGeneracion = lector["CodigoGeneracion"].ToString(),
                             SelloRecepcion = lector["SelloRecepcion"].ToString(),
                             Fecha = DateTime.Parse(lector["Fecha"].ToString()),
-                            TipoDTE = lector["TipoDTE"].ToString()
+                            TipoDTE = lector["TipoDTE"].ToString(),
+                            cliente = lector["cliente"].ToString()
                         };
 
                         ventas.Add(venta);
@@ -204,7 +229,8 @@ namespace FacturacionForm.BaseDeDatos
                             CodigoGeneracion = lector["CodigoGeneracion"].ToString(),
                             SelloRecepcion = lector["SelloRecepcion"].ToString(),
                             Fecha = DateTime.Parse(lector["Fecha"].ToString()),
-                            TipoDTE = lector["TipoDTE"].ToString()
+                            TipoDTE = lector["TipoDTE"].ToString(),
+                            cliente = lector["cliente"].ToString()
                         };
 
                         ventas.Add(venta);
@@ -236,7 +262,8 @@ namespace FacturacionForm.BaseDeDatos
                             CodigoGeneracion = lector["CodigoGeneracion"].ToString(),
                             SelloRecepcion = lector["SelloRecepcion"].ToString(),
                             Fecha = DateTime.Parse(lector["Fecha"].ToString()),
-                            TipoDTE = lector["TipoDTE"].ToString()
+                            TipoDTE = lector["TipoDTE"].ToString(),
+                            cliente = lector["cliente"].ToString()
                         };
 
                         ventas.Add(venta);
@@ -289,6 +316,36 @@ namespace FacturacionForm.BaseDeDatos
                 return filasAfectadas > 0;
             }
         }
+
+       
+
+        // Método para obtener el correlativo actual sin incrementar
+        public int ObtenerSiguienteCorrelativo(string tipoDTE)
+        {
+            using (SQLiteCommand comando = _conexion.CreateCommand())
+            {
+                // Primero obtenemos el número actual
+                comando.CommandText = @"SELECT NumeroActual FROM Correlativos WHERE TipoDTE = @tipoDTE";
+                comando.Parameters.AddWithValue("@tipoDTE", tipoDTE);
+
+                var numeroActual = Convert.ToInt32(comando.ExecuteScalar() ?? 0);
+                var siguienteNumero = numeroActual + 1;
+
+                // Actualizamos el correlativo
+                comando.CommandText = @"
+            UPDATE Correlativos 
+            SET NumeroActual = @nuevoNumero, 
+                FechaUltimaActualizacion = datetime('now')
+            WHERE TipoDTE = @tipoDTE";
+
+                comando.Parameters.Clear();
+                comando.Parameters.AddWithValue("@nuevoNumero", siguienteNumero);
+                comando.Parameters.AddWithValue("@tipoDTE", tipoDTE);
+                comando.ExecuteNonQuery();
+
+                return siguienteNumero;
+            }
+        }
     }
 
     public class VentaDTO
@@ -300,6 +357,7 @@ namespace FacturacionForm.BaseDeDatos
         public string SelloRecepcion { get; set; }
         public DateTime Fecha { get; set; }
         public string TipoDTE { get; set; }
+        public string cliente { get; set; }
     }
 }
 

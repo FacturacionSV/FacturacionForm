@@ -103,10 +103,10 @@ namespace FacturacionForm
                 textBoxIva.Text = 0.ToString();
                 if (radioButtonCFF.Checked)
                 {
-                    decimal iva = totalGeneral * 0.13m;
-                    textBoxSumas.Text = totalGeneral.ToString();
+                    decimal iva = Math.Round((totalGeneral/1.13m) * 0.13m,2);
+                    textBoxSumas.Text = Math.Round((totalGeneral/1.13m),2).ToString();
                     textBoxIva.Text = iva.ToString();
-                    textBoxTotal.Text = (totalGeneral + iva).ToString();
+                    textBoxTotal.Text = (totalGeneral).ToString();
                 }
 
 
@@ -127,58 +127,104 @@ namespace FacturacionForm
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBoxEmailReceptor.Text.Length == 0)
-            {
-                MessageBox.Show("Escriba el EMAIL del receptor");
-                textBoxEmailReceptor.Focus();
-                return;
-            }
-            //EXTRAER LOS DATOS 
-            List<DetalleVenta> listaDetallesVenta = new List<DetalleVenta>();
+            button1.Enabled = false;
+            button1.Text = "Procesando";
 
-            foreach (DataGridViewRow row in dataGridView1.Rows)
+            try
             {
-                if (!row.IsNewRow) // Evitar la última fila vacía
+
+                if (textBoxEmailReceptor.Text.Length == 0)
                 {
-                    int cantidad = Convert.ToInt32(row.Cells["cantidad"].Value ?? 0);
-                    string descripcion = row.Cells["descripcion"].Value?.ToString() ?? "";
-                    decimal precio = Convert.ToDecimal(row.Cells["precio"].Value ?? 0);
+                    MessageBox.Show("Escriba el EMAIL del receptor");
+                    textBoxEmailReceptor.Focus();
+                    return;
+                }
+                //EXTRAER LOS DATOS 
+                List<DetalleVenta> listaDetallesVenta = new List<DetalleVenta>();
 
-                    // Crear objeto DetalleVenta y agregarlo a la lista
-                    listaDetallesVenta.Add(new DetalleVenta(cantidad, descripcion, precio));
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    if (!row.IsNewRow) // Evitar la última fila vacía
+                    {
+                        int cantidad = Convert.ToInt32(row.Cells["cantidad"].Value ?? 0);
+                        string descripcion = row.Cells["descripcion"].Value?.ToString() ?? "";
+                        decimal precio = Convert.ToDecimal(row.Cells["precio"].Value ?? 0);
+
+                        // Crear objeto DetalleVenta y agregarlo a la lista
+                        listaDetallesVenta.Add(new DetalleVenta(cantidad, descripcion, precio));
+                    }
+                }
+
+                //EMISOR
+                Emisor emisor = new Emisor();
+                emisor.NombreComercial = textBoxNombreEmisor.Text;
+                emisor.Telefono = textBoxTelefonoEmisor.Text;
+                emisor.Email = textBoxEmailEmisor.Text;
+                emisor.Direccion = textBoxDireccionEmisor.Text;
+                emisor.NIT = textBoxNitEmisor.Text;
+                emisor.NRC = textBoxNRCEmisor.Text;
+
+                //Receptor
+                Receptor receptor = new Receptor();
+                receptor.NombreComercial = textBoxNombreReceptor.Text;
+                receptor.Telefono = textBox1TelReceptor.Text;
+                receptor.Email = textBoxEmailReceptor.Text;
+                receptor.Direccion = textBoxDireccionReceptor.Text;
+                receptor.NIT = textBoxNitReceptor.Text.Trim().Replace("-","");
+                receptor.NRC = textBoxNRCReceptor.Text.Trim().Replace("-", "");
+                receptor.CodigoActividadEconomica = textBoxCodActividad.Text;
+
+
+                if (radioButtonCF.Checked)
+                {
+
+                    if (receptor == null ||
+        string.IsNullOrEmpty(receptor.NombreComercial) ||
+        string.IsNullOrEmpty(receptor.Telefono) ||
+        string.IsNullOrEmpty(receptor.Email) ||
+        string.IsNullOrEmpty(receptor.Direccion))
+                    {
+                        MessageBox.Show("Faltan datos requeridos del receptor para CF");
+                        return;
+                    }
+
+
+
+                    ProcesarDTECF procesarDTECF = new ProcesarDTECF(listaDetallesVenta, emisor, receptor);
+                    procesarDTECF.EnviarDTE();
+                }
+                else
+                {
+
+
+                    if (receptor == null ||
+                        string.IsNullOrEmpty(receptor.NombreComercial) ||
+                        string.IsNullOrEmpty(receptor.Telefono) ||
+                        string.IsNullOrEmpty(receptor.Email) ||
+                        string.IsNullOrEmpty(receptor.Direccion) ||
+                        string.IsNullOrEmpty(receptor.NRC) ||
+                        string.IsNullOrEmpty(receptor.CodigoActividadEconomica) ||
+                        string.IsNullOrEmpty(receptor.NIT))
+                    {
+                        MessageBox.Show("Faltan datos requeridos del receptor para CCF");
+                        return;
+                    }
+                    ProcesarDTECCF procesarDTECCF = new ProcesarDTECCF(listaDetallesVenta, emisor, receptor);
+                    procesarDTECCF.EnviarDTE();
                 }
             }
-
-            //EMISOR
-            Emisor emisor = new Emisor();
-            emisor.NombreComercial = textBoxNombreEmisor.Text;
-            emisor.Telefono = textBoxTelefonoEmisor.Text;
-            emisor.Email = textBoxEmailEmisor.Text;
-            emisor.Direccion = textBoxDireccionEmisor.Text;
-            emisor.NIT = textBoxNitEmisor.Text;
-            emisor.NRC = textBoxNRCEmisor.Text;
-
-            //Receptor
-            Receptor receptor = new Receptor();
-            receptor.NombreComercial = textBoxNombreReceptor.Text;
-            receptor.Telefono = textBox1TelReceptor.Text;
-            receptor.Email = textBoxEmailReceptor.Text;
-            receptor.Direccion = textBoxDireccionReceptor.Text;
-            receptor.NIT = textBoxNitReceptor.Text;
-            receptor.NRC = textBoxNRCReceptor.Text;
-
-
-            if (radioButtonCF.Checked)
+            catch (Exception ex)
             {
-                ProcesarDTECF procesarDTECF = new ProcesarDTECF(listaDetallesVenta, emisor, receptor);
-                procesarDTECF.EnviarDTE();
-            }
-            else
-            {
-                ProcesarDTECCF procesarDTECCF = new ProcesarDTECCF(listaDetallesVenta, emisor, receptor);
-                procesarDTECCF.EnviarDTE();
-            }
 
+
+
+            }
+            finally
+            {
+
+                button1.Enabled = true;
+                button1.Text = "FACTURAR";
+            }
 
         }
 

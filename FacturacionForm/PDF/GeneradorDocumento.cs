@@ -541,7 +541,7 @@ namespace GeneradorDocumentos
 
             string departamento = ObtenerNombreDepartamento(direccion.departamento.ToString());
             string municipio = ObtenerNombreMunicipio(direccion.municipio.ToString());
-            string complemento = direccion.complemento?.ToString() ?? "";
+            string complemento = ""; //direccion.complemento?.ToString() ?? "";
 
             return $"{complemento}, {municipio}, {departamento}";
         }

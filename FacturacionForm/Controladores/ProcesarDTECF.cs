@@ -45,14 +45,17 @@ namespace FacturacionForm.Controladores
             int i = random.Next(1, 100001); // Genera un número aleatorio entre 1 y 100000
             string correlativo = i.ToString().PadLeft(15, '0'); // Rellena con ceros a la izquierda para que tenga 15 caracteres
             // Generar número de control
-            string numeroControl = "DTE-" + "01" + "-" + "ABCD1234" + "-" + correlativo;
+            ManejadorBD manejador = new ManejadorBD();
+            int numero = manejador.ObtenerSiguienteCorrelativo("CF");
+            string numeroFormateado = numero.ToString("D15");
+            string numeroControl = "DTE-" + "01" + "-" + "ABCD1234" + "-" + numeroFormateado;
 
             // ESQUEMA PARA UN DTE DE CONSUMIDOR FINAL DTE 01
 
             var identificacion = new
             {
                 version = 1,
-                ambiente = "00",
+                ambiente = "01",
                 tipoDte = "01",
                 numeroControl = numeroControl,
                 codigoGeneracion = codigoGeneracion.ToString().ToUpper(),
@@ -211,19 +214,20 @@ namespace FacturacionForm.Controladores
             {
                 Usuario = Emisor.NIT,
                 Password = Emisor.ClaveApi,
-                Ambiente = "00",
+                Ambiente = "01",
                 DteJson = dteJson,
                 Nit = Emisor.NIT,
                 PasswordPrivado = Emisor.Clave,
                 TipoDte = "01",
                 CodigoGeneracion = codigoGeneracion,
                 NumControl = numeroControl,
-                VersionDte = 1
+                VersionDte = 1,
+                CorreoCliente = Receptor.Email
             };
             using (HttpClient client = new HttpClient())
             {
                 // LLAMADA ÚNICA
-                var response = client.PostAsJsonAsync("https://localhost:7122/api/procesar-dte", requestUnificado).Result;
+                var response = client.PostAsJsonAsync("http://207.58.175.219:7100/api/procesar-dte", requestUnificado).Result;
                 var responseData = response.Content.ReadAsStringAsync().Result;
 
                 if (!response.IsSuccessStatusCode)
@@ -237,7 +241,7 @@ namespace FacturacionForm.Controladores
                 //Guardar en la base de datos
 
                 ManejadorBD manejadorBD = new ManejadorBD();
-                manejadorBD.InsertarVenta(dteJson,numeroControl,codigoGeneracion.ToString().ToUpper(), selloRecepcion,DateTime.Now,"01");
+                manejadorBD.InsertarVenta(dteJson,numeroControl,codigoGeneracion.ToString().ToUpper(), selloRecepcion,DateTime.Now,"01", Receptor.NombreComercial);
 
                 //PDF
                 var generador = new GeneradorDocumentos.GeneradorPdfDte();
@@ -245,18 +249,18 @@ namespace FacturacionForm.Controladores
                 try
                 {
                     // Generar el PDF en memoria
-                    byte[] pdfBytes = generador.GenerarPdfEnMemoria(dteJson,selloRecepcion);
+                  //  byte[] pdfBytes = generador.GenerarPdfEnMemoria(dteJson,selloRecepcion);
 
                     // Opciones de uso:
 
                     // 1. Abrir el PDF en el navegador
-                    generador.AbrirPdfEnNavegador(pdfBytes);
+                //    generador.AbrirPdfEnNavegador(pdfBytes);
 
                     // 2. Guardar el PDF en un archivo
-                    File.WriteAllBytes("DocumentoDTE.pdf", pdfBytes);
+                 //   File.WriteAllBytes("DocumentoDTE.pdf", pdfBytes);
 
                     // 3. Si quieres enviarlo por correo electrónico
-                    EnviadorCorreos.EnviarFacturaElectronica(pdfBytes, dteJson,Receptor.Email);
+                //    EnviadorCorreos.EnviarFacturaElectronica(pdfBytes, dteJson,Receptor.Email);
 
                     Console.WriteLine("PDF generado exitosamente");
                 }

@@ -64,6 +64,8 @@
             label12 = new Label();
             textBox1TelReceptor = new TextBox();
             label13 = new Label();
+            textBoxCodActividad = new TextBox();
+            label18 = new Label();
             textBoxNRCReceptor = new TextBox();
             label14 = new Label();
             textBoxNitReceptor = new TextBox();
@@ -109,7 +111,7 @@
             textBoxEmailEmisor.Name = "textBoxEmailEmisor";
             textBoxEmailEmisor.Size = new Size(203, 25);
             textBoxEmailEmisor.TabIndex = 9;
-            textBoxEmailEmisor.Text = "demo@gmail.com";
+            textBoxEmailEmisor.Text = "comprobantes-montepiedad@enviosdte.email";
             // 
             // label11
             // 
@@ -126,7 +128,7 @@
             textBoxTelefonoEmisor.Name = "textBoxTelefonoEmisor";
             textBoxTelefonoEmisor.Size = new Size(203, 25);
             textBoxTelefonoEmisor.TabIndex = 3;
-            textBoxTelefonoEmisor.Text = "76230990";
+            textBoxTelefonoEmisor.Text = "23352785";
             // 
             // label10
             // 
@@ -143,7 +145,7 @@
             textBoxNRCEmisor.Name = "textBoxNRCEmisor";
             textBoxNRCEmisor.Size = new Size(129, 25);
             textBoxNRCEmisor.TabIndex = 7;
-            textBoxNRCEmisor.Text = "2962736";
+            textBoxNRCEmisor.Text = "2432212";
             // 
             // label8
             // 
@@ -160,7 +162,7 @@
             textBoxNitEmisor.Name = "textBoxNitEmisor";
             textBoxNitEmisor.Size = new Size(167, 25);
             textBoxNitEmisor.TabIndex = 5;
-            textBoxNitEmisor.Text = "049945205";
+            textBoxNitEmisor.Text = "04071508151011";
             // 
             // label7
             // 
@@ -194,7 +196,7 @@
             textBoxNombreEmisor.Name = "textBoxNombreEmisor";
             textBoxNombreEmisor.Size = new Size(351, 25);
             textBoxNombreEmisor.TabIndex = 1;
-            textBoxNombreEmisor.Text = "Carlos Ramos";
+            textBoxNombreEmisor.Text = "Monte Piedad SA de CV";
             // 
             // label6
             // 
@@ -350,6 +352,8 @@
             groupBox2.Controls.Add(label12);
             groupBox2.Controls.Add(textBox1TelReceptor);
             groupBox2.Controls.Add(label13);
+            groupBox2.Controls.Add(textBoxCodActividad);
+            groupBox2.Controls.Add(label18);
             groupBox2.Controls.Add(textBoxNRCReceptor);
             groupBox2.Controls.Add(label14);
             groupBox2.Controls.Add(textBoxNitReceptor);
@@ -363,7 +367,7 @@
             groupBox2.Location = new Point(659, 19);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(580, 165);
-            groupBox2.TabIndex = 1;
+            groupBox2.TabIndex = 0;
             groupBox2.TabStop = false;
             groupBox2.Text = "Datos del receptor";
             // 
@@ -372,8 +376,7 @@
             textBoxEmailReceptor.Location = new Point(366, 84);
             textBoxEmailReceptor.Name = "textBoxEmailReceptor";
             textBoxEmailReceptor.Size = new Size(203, 25);
-            textBoxEmailReceptor.TabIndex = 9;
-            textBoxEmailReceptor.Text = "jguardadosv@gmail.com";
+            textBoxEmailReceptor.TabIndex = 4;
             // 
             // label12
             // 
@@ -387,10 +390,10 @@
             // textBox1TelReceptor
             // 
             textBox1TelReceptor.Location = new Point(366, 39);
+            textBox1TelReceptor.MaxLength = 8;
             textBox1TelReceptor.Name = "textBox1TelReceptor";
             textBox1TelReceptor.Size = new Size(203, 25);
-            textBox1TelReceptor.TabIndex = 3;
-            textBox1TelReceptor.Text = "78451269";
+            textBox1TelReceptor.TabIndex = 1;
             // 
             // label13
             // 
@@ -401,12 +404,28 @@
             label13.TabIndex = 2;
             label13.Text = "TEL.";
             // 
+            // textBoxCodActividad
+            // 
+            textBoxCodActividad.Location = new Point(372, 127);
+            textBoxCodActividad.Name = "textBoxCodActividad";
+            textBoxCodActividad.Size = new Size(129, 25);
+            textBoxCodActividad.TabIndex = 6;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Location = new Point(371, 110);
+            label18.Name = "label18";
+            label18.Size = new Size(92, 17);
+            label18.TabIndex = 6;
+            label18.Text = "COD Actividad";
+            // 
             // textBoxNRCReceptor
             // 
             textBoxNRCReceptor.Location = new Point(179, 84);
             textBoxNRCReceptor.Name = "textBoxNRCReceptor";
             textBoxNRCReceptor.Size = new Size(129, 25);
-            textBoxNRCReceptor.TabIndex = 7;
+            textBoxNRCReceptor.TabIndex = 3;
             // 
             // label14
             // 
@@ -422,7 +441,7 @@
             textBoxNitReceptor.Location = new Point(6, 84);
             textBoxNitReceptor.Name = "textBoxNitReceptor";
             textBoxNitReceptor.Size = new Size(167, 25);
-            textBoxNitReceptor.TabIndex = 5;
+            textBoxNitReceptor.TabIndex = 2;
             // 
             // label15
             // 
@@ -438,8 +457,7 @@
             textBoxDireccionReceptor.Location = new Point(6, 128);
             textBoxDireccionReceptor.Name = "textBoxDireccionReceptor";
             textBoxDireccionReceptor.Size = new Size(351, 25);
-            textBoxDireccionReceptor.TabIndex = 11;
-            textBoxDireccionReceptor.Text = "Chalatenango";
+            textBoxDireccionReceptor.TabIndex = 5;
             // 
             // label16
             // 
@@ -455,8 +473,7 @@
             textBoxNombreReceptor.Location = new Point(6, 39);
             textBoxNombreReceptor.Name = "textBoxNombreReceptor";
             textBoxNombreReceptor.Size = new Size(351, 25);
-            textBoxNombreReceptor.TabIndex = 1;
-            textBoxNombreReceptor.Text = "Cliente casual";
+            textBoxNombreReceptor.TabIndex = 0;
             // 
             // label17
             // 
@@ -581,5 +598,7 @@
         private RadioButton radioButtonCF;
         private RadioButton radioButtonCFF;
         private Button button2;
+        private TextBox textBoxCodActividad;
+        private Label label18;
     }
 }

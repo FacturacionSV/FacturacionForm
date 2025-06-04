@@ -30,16 +30,16 @@
         {
             components = new System.ComponentModel.Container();
             dataGridView1 = new DataGridView();
+            ventaDTOBindingSource = new BindingSource(components);
+            button1 = new Button();
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             fechaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            Cliente = new DataGridViewTextBoxColumn();
             tipoDTEDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             documentoJsonDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             numeroControlDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             codigoGeneracionDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             selloRecepcionDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            ventaDTOBindingSource = new BindingSource(components);
-            button1 = new Button();
-            button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ventaDTOBindingSource).BeginInit();
             SuspendLayout();
@@ -50,13 +50,27 @@
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, fechaDataGridViewTextBoxColumn, tipoDTEDataGridViewTextBoxColumn, documentoJsonDataGridViewTextBoxColumn, numeroControlDataGridViewTextBoxColumn, codigoGeneracionDataGridViewTextBoxColumn, selloRecepcionDataGridViewTextBoxColumn });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, fechaDataGridViewTextBoxColumn, Cliente, tipoDTEDataGridViewTextBoxColumn, documentoJsonDataGridViewTextBoxColumn, numeroControlDataGridViewTextBoxColumn, codigoGeneracionDataGridViewTextBoxColumn, selloRecepcionDataGridViewTextBoxColumn });
             dataGridView1.DataSource = ventaDTOBindingSource;
             dataGridView1.Location = new Point(12, 33);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
-            dataGridView1.Size = new Size(860, 394);
+            dataGridView1.Size = new Size(1022, 394);
             dataGridView1.TabIndex = 0;
+            // 
+            // ventaDTOBindingSource
+            // 
+            ventaDTOBindingSource.DataSource = typeof(BaseDeDatos.VentaDTO);
+            // 
+            // button1
+            // 
+            button1.Location = new Point(1040, 33);
+            button1.Name = "button1";
+            button1.Size = new Size(129, 23);
+            button1.TabIndex = 1;
+            button1.Text = "ANULAR";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -72,6 +86,14 @@
             fechaDataGridViewTextBoxColumn.HeaderText = "Fecha";
             fechaDataGridViewTextBoxColumn.Name = "fechaDataGridViewTextBoxColumn";
             fechaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // Cliente
+            // 
+            Cliente.DataPropertyName = "Cliente";
+            Cliente.HeaderText = "Cliente";
+            Cliente.Name = "Cliente";
+            Cliente.ReadOnly = true;
+            Cliente.Width = 200;
             // 
             // tipoDTEDataGridViewTextBoxColumn
             // 
@@ -112,36 +134,11 @@
             selloRecepcionDataGridViewTextBoxColumn.ReadOnly = true;
             selloRecepcionDataGridViewTextBoxColumn.Width = 200;
             // 
-            // ventaDTOBindingSource
-            // 
-            ventaDTOBindingSource.DataSource = typeof(BaseDeDatos.VentaDTO);
-            // 
-            // button1
-            // 
-            button1.Location = new Point(888, 37);
-            button1.Name = "button1";
-            button1.Size = new Size(129, 23);
-            button1.TabIndex = 1;
-            button1.Text = "ANULAR";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(888, 80);
-            button2.Name = "button2";
-            button2.Size = new Size(129, 23);
-            button2.TabIndex = 1;
-            button2.Text = "VER PDF";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
-            // 
             // FConsulta
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1045, 450);
-            Controls.Add(button2);
+            ClientSize = new Size(1172, 450);
             Controls.Add(button1);
             Controls.Add(dataGridView1);
             Name = "FConsulta";
@@ -157,14 +154,14 @@
 
         private DataGridView dataGridView1;
         private BindingSource ventaDTOBindingSource;
+        private Button button1;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn fechaDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn Cliente;
         private DataGridViewTextBoxColumn tipoDTEDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn documentoJsonDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn numeroControlDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn codigoGeneracionDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn selloRecepcionDataGridViewTextBoxColumn;
-        private Button button1;
-        private Button button2;
     }
 }
