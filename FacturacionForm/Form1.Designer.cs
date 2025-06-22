@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
             textBoxEmailEmisor = new TextBox();
             label11 = new Label();
@@ -111,7 +111,6 @@
             textBoxEmailEmisor.Name = "textBoxEmailEmisor";
             textBoxEmailEmisor.Size = new Size(203, 25);
             textBoxEmailEmisor.TabIndex = 9;
-            textBoxEmailEmisor.Text = "comprobantes-montepiedad@enviosdte.email";
             // 
             // label11
             // 
@@ -128,7 +127,6 @@
             textBoxTelefonoEmisor.Name = "textBoxTelefonoEmisor";
             textBoxTelefonoEmisor.Size = new Size(203, 25);
             textBoxTelefonoEmisor.TabIndex = 3;
-            textBoxTelefonoEmisor.Text = "23352785";
             // 
             // label10
             // 
@@ -145,7 +143,6 @@
             textBoxNRCEmisor.Name = "textBoxNRCEmisor";
             textBoxNRCEmisor.Size = new Size(129, 25);
             textBoxNRCEmisor.TabIndex = 7;
-            textBoxNRCEmisor.Text = "2432212";
             // 
             // label8
             // 
@@ -162,7 +159,6 @@
             textBoxNitEmisor.Name = "textBoxNitEmisor";
             textBoxNitEmisor.Size = new Size(167, 25);
             textBoxNitEmisor.TabIndex = 5;
-            textBoxNitEmisor.Text = "04071508151011";
             // 
             // label7
             // 
@@ -179,7 +175,6 @@
             textBoxDireccionEmisor.Name = "textBoxDireccionEmisor";
             textBoxDireccionEmisor.Size = new Size(351, 25);
             textBoxDireccionEmisor.TabIndex = 11;
-            textBoxDireccionEmisor.Text = "Chalatenango";
             // 
             // label9
             // 
@@ -196,7 +191,6 @@
             textBoxNombreEmisor.Name = "textBoxNombreEmisor";
             textBoxNombreEmisor.Size = new Size(351, 25);
             textBoxNombreEmisor.TabIndex = 1;
-            textBoxNombreEmisor.Text = "Monte Piedad SA de CV";
             // 
             // label6
             // 
@@ -220,9 +214,9 @@
             // 
             // cantidad
             // 
-            dataGridViewCellStyle1.Format = "N0";
-            dataGridViewCellStyle1.NullValue = null;
-            cantidad.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Format = "N0";
+            dataGridViewCellStyle4.NullValue = null;
+            cantidad.DefaultCellStyle = dataGridViewCellStyle4;
             cantidad.HeaderText = "CANTIDAD";
             cantidad.Name = "cantidad";
             // 
@@ -234,18 +228,18 @@
             // 
             // precio
             // 
-            dataGridViewCellStyle2.Format = "C2";
-            dataGridViewCellStyle2.NullValue = null;
-            precio.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Format = "C2";
+            dataGridViewCellStyle5.NullValue = null;
+            precio.DefaultCellStyle = dataGridViewCellStyle5;
             precio.HeaderText = "PRECIO UNITARIO";
             precio.Name = "precio";
             precio.Width = 200;
             // 
             // total
             // 
-            dataGridViewCellStyle3.Format = "C2";
-            dataGridViewCellStyle3.NullValue = null;
-            total.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Format = "C2";
+            dataGridViewCellStyle6.NullValue = null;
+            total.DefaultCellStyle = dataGridViewCellStyle6;
             total.HeaderText = "TOTAL";
             total.Name = "total";
             // 

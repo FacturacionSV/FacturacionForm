@@ -18,6 +18,7 @@ using System;
 using System.IO;
 using System.ComponentModel;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;
+using Newtonsoft.Json;
 namespace FacturacionForm.Controladores
 {
     public class ProcesarDTECF
@@ -55,7 +56,7 @@ namespace FacturacionForm.Controladores
             var identificacion = new
             {
                 version = 1,
-                ambiente = "01",
+                ambiente = "00",
                 tipoDte = "01",
                 numeroControl = numeroControl,
                 codigoGeneracion = codigoGeneracion.ToString().ToUpper(),
@@ -193,20 +194,20 @@ namespace FacturacionForm.Controladores
                 placaVehiculo = (string)null
             };
 
-            // Serializar el objeto JSON completo
-            dteJson = JsonSerializer.Serialize(new
+            // Serializar el objeto JSON completo usando Newtonsoft.Json
+            dteJson = JsonConvert.SerializeObject(new
             {
                 identificacion,
-                documentoRelacionado = (string)null,
+                documentoRelacionado = (object)null, // Cambiar a (object)null
                 emisor,
                 receptor,
-                ventaTercero = (string)null,
+                ventaTercero = (object)null,         // Cambiar a (object)null
                 cuerpoDocumento,
                 resumen,
                 extension,
-                otrosDocumentos = (string)null,
-                apendice = (string)null
-            });
+                otrosDocumentos = (object)null,      // Cambiar a (object)null
+                apendice = (object)null              // Cambiar a (object)null
+            }, Newtonsoft.Json.Formatting.None); // Sin formato para que sea compacto
 
 
             //ENVIO A LA API
@@ -214,7 +215,7 @@ namespace FacturacionForm.Controladores
             {
                 Usuario = Emisor.NIT,
                 Password = Emisor.ClaveApi,
-                Ambiente = "01",
+                Ambiente = "00",
                 DteJson = dteJson,
                 Nit = Emisor.NIT,
                 PasswordPrivado = Emisor.Clave,
@@ -227,8 +228,8 @@ namespace FacturacionForm.Controladores
             using (HttpClient client = new HttpClient())
             {
                 // LLAMADA ÚNICA
-                //var response = client.PostAsJsonAsync("https://localhost:7122/api/procesar-dte", requestUnificado).Result;
-                var response = client.PostAsJsonAsync("http://207.58.175.219:7100/api/procesar-dte", requestUnificado).Result;
+               // var response = client.PostAsJsonAsync("https://localhost:7122/api/procesar-dte", requestUnificado).Result;
+                var response = client.PostAsJsonAsync("http://207.58.175.219:9200/api/procesar-dte", requestUnificado).Result;
                 var responseData = response.Content.ReadAsStringAsync().Result;
 
                 if (!response.IsSuccessStatusCode)

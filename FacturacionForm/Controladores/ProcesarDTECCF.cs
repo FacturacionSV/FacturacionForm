@@ -50,7 +50,7 @@ namespace FacturacionForm.Controladores
             var identificacion = new
             {
                 version = 3,
-                ambiente = "01",
+                ambiente = "00",
                 tipoDte = "03",
                 numeroControl = numeroControl,
                 codigoGeneracion = codigoGeneracion.ToString().ToUpper(),
@@ -220,7 +220,7 @@ namespace FacturacionForm.Controladores
             {
                 Usuario = Emisor.NIT,
                 Password = Emisor.ClaveApi,
-                Ambiente = "01",
+                Ambiente = "00",
                 DteJson = dteJson,
                 Nit = Emisor.NIT,
                 PasswordPrivado = Emisor.Clave,

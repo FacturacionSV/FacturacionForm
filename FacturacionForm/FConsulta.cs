@@ -211,7 +211,7 @@ namespace FacturacionForm
                     //  Console.WriteLine(json2); // Verifica que el JSON esté bien
 
                     // LLAMADA ÚNICA a la API
-                    var response = client.PostAsJsonAsync("http://207.58.175.219:7122/api/anular-dte", requestAnulacion).Result;
+                    var response = client.PostAsJsonAsync("http://207.58.175.219:9200/api/anular-dte", requestAnulacion).Result;
                     var responseData = response.Content.ReadAsStringAsync().Result;
 
                     //*****************

@@ -346,6 +346,26 @@ namespace FacturacionForm.BaseDeDatos
                 return siguienteNumero;
             }
         }
+
+        public void setCorrelativo(string tipoDTE,int numero)
+        {
+            using (SQLiteCommand comando = _conexion.CreateCommand())
+            {
+                
+                // Actualizamos el correlativo
+                comando.CommandText = @"
+            UPDATE Correlativos 
+            SET NumeroActual = @nuevoNumero, 
+                FechaUltimaActualizacion = datetime('now')
+            WHERE TipoDTE = @tipoDTE";
+
+                comando.Parameters.Clear();
+                comando.Parameters.AddWithValue("@nuevoNumero", numero);
+                comando.Parameters.AddWithValue("@tipoDTE", tipoDTE);
+                comando.ExecuteNonQuery();
+                
+            }
+        }
     }
 
     public class VentaDTO

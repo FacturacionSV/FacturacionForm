@@ -12,6 +12,15 @@ namespace FacturacionForm
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Emisor emisor = new Emisor();
+            textBoxDireccionEmisor.Text =emisor.Direccion;
+            textBoxNombreEmisor.Text=emisor.NombreComercial;
+            textBoxNRCEmisor.Text = emisor.NRC;
+            textBoxNitEmisor.Text = emisor.NIT;
+            textBoxEmailEmisor.Text = emisor.Email;
+            textBoxTelefonoEmisor.Text = emisor.Telefono;
+
+
             //ESTILOS
             // Estilos de encabezado
             dataGridView1.EnableHeadersVisualStyles = false;
@@ -216,7 +225,7 @@ namespace FacturacionForm
             catch (Exception ex)
             {
 
-
+                MessageBox.Show(ex.Message);
 
             }
             finally
