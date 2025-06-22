@@ -28,9 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
             textBoxEmailEmisor = new TextBox();
             label11 = new Label();
@@ -44,16 +41,9 @@
             label9 = new Label();
             textBoxNombreEmisor = new TextBox();
             label6 = new Label();
-            dataGridView1 = new DataGridView();
-            cantidad = new DataGridViewTextBoxColumn();
-            descripcion = new DataGridViewTextBoxColumn();
-            precio = new DataGridViewTextBoxColumn();
-            total = new DataGridViewTextBoxColumn();
             label1 = new Label();
             label2 = new Label();
             textBoxSumas = new TextBox();
-            label3 = new Label();
-            textBoxRetencion = new TextBox();
             label4 = new Label();
             textBoxIva = new TextBox();
             label5 = new Label();
@@ -77,8 +67,25 @@
             radioButtonCF = new RadioButton();
             radioButtonCFF = new RadioButton();
             button2 = new Button();
+            textBoxCantidad1 = new TextBox();
+            textBoxDescripcion1 = new TextBox();
+            textBoxPrecio1 = new TextBox();
+            textBoxCantidad2 = new TextBox();
+            textBoxPrecio2 = new TextBox();
+            textBoxDescripcion2 = new TextBox();
+            textBoxCantidad3 = new TextBox();
+            textBoxPrecio3 = new TextBox();
+            textBoxDescripcion3 = new TextBox();
+            textBoxCantidad4 = new TextBox();
+            textBoxPrecio4 = new TextBox();
+            textBoxDescripcion4 = new TextBox();
+            textBoxComentarios = new TextBox();
+            label19 = new Label();
+            label20 = new Label();
+            label21 = new Label();
+            label22 = new Label();
+            button3 = new Button();
             groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             groupBox2.SuspendLayout();
             SuspendLayout();
             // 
@@ -201,48 +208,6 @@
             label6.TabIndex = 0;
             label6.Text = "Nombre comercial";
             // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { cantidad, descripcion, precio, total });
-            dataGridView1.Location = new Point(31, 214);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(913, 304);
-            dataGridView1.TabIndex = 2;
-            dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
-            dataGridView1.RowsRemoved += dataGridView1_RowsRemoved;
-            // 
-            // cantidad
-            // 
-            dataGridViewCellStyle4.Format = "N0";
-            dataGridViewCellStyle4.NullValue = null;
-            cantidad.DefaultCellStyle = dataGridViewCellStyle4;
-            cantidad.HeaderText = "CANTIDAD";
-            cantidad.Name = "cantidad";
-            // 
-            // descripcion
-            // 
-            descripcion.HeaderText = "DESCRIPCION";
-            descripcion.Name = "descripcion";
-            descripcion.Width = 300;
-            // 
-            // precio
-            // 
-            dataGridViewCellStyle5.Format = "C2";
-            dataGridViewCellStyle5.NullValue = null;
-            precio.DefaultCellStyle = dataGridViewCellStyle5;
-            precio.HeaderText = "PRECIO UNITARIO";
-            precio.Name = "precio";
-            precio.Width = 200;
-            // 
-            // total
-            // 
-            dataGridViewCellStyle6.Format = "C2";
-            dataGridViewCellStyle6.NullValue = null;
-            total.DefaultCellStyle = dataGridViewCellStyle6;
-            total.HeaderText = "TOTAL";
-            total.Name = "total";
-            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -250,7 +215,7 @@
             label1.Location = new Point(1031, 192);
             label1.Name = "label1";
             label1.Size = new Size(105, 32);
-            label1.TabIndex = 3;
+            label1.TabIndex = 22;
             label1.Text = "TOTALES";
             // 
             // label2
@@ -260,7 +225,7 @@
             label2.Location = new Point(950, 248);
             label2.Name = "label2";
             label2.Size = new Size(58, 20);
-            label2.TabIndex = 4;
+            label2.TabIndex = 23;
             label2.Text = "SUMAS";
             // 
             // textBoxSumas
@@ -269,64 +234,45 @@
             textBoxSumas.Location = new Point(1044, 245);
             textBoxSumas.Name = "textBoxSumas";
             textBoxSumas.Size = new Size(195, 29);
-            textBoxSumas.TabIndex = 5;
+            textBoxSumas.TabIndex = 24;
             textBoxSumas.TextAlign = HorizontalAlignment.Right;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(950, 281);
-            label3.Name = "label3";
-            label3.Size = new Size(88, 20);
-            label3.TabIndex = 6;
-            label3.Text = "RETENCION";
-            // 
-            // textBoxRetencion
-            // 
-            textBoxRetencion.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            textBoxRetencion.Location = new Point(1044, 278);
-            textBoxRetencion.Name = "textBoxRetencion";
-            textBoxRetencion.Size = new Size(195, 29);
-            textBoxRetencion.TabIndex = 7;
-            textBoxRetencion.TextAlign = HorizontalAlignment.Right;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(950, 314);
+            label4.Location = new Point(950, 283);
             label4.Name = "label4";
             label4.Size = new Size(31, 20);
-            label4.TabIndex = 8;
+            label4.TabIndex = 27;
             label4.Text = "IVA";
             // 
             // textBoxIva
             // 
             textBoxIva.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            textBoxIva.Location = new Point(1044, 311);
+            textBoxIva.Location = new Point(1044, 280);
             textBoxIva.Name = "textBoxIva";
             textBoxIva.Size = new Size(195, 29);
-            textBoxIva.TabIndex = 9;
+            textBoxIva.TabIndex = 28;
             textBoxIva.TextAlign = HorizontalAlignment.Right;
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(950, 347);
+            label5.Location = new Point(950, 316);
             label5.Name = "label5";
             label5.Size = new Size(50, 20);
-            label5.TabIndex = 10;
+            label5.TabIndex = 29;
             label5.Text = "TOTAL";
             // 
             // textBoxTotal
             // 
             textBoxTotal.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            textBoxTotal.Location = new Point(1044, 344);
+            textBoxTotal.Location = new Point(1044, 313);
             textBoxTotal.Name = "textBoxTotal";
             textBoxTotal.Size = new Size(195, 29);
-            textBoxTotal.TabIndex = 11;
+            textBoxTotal.TabIndex = 30;
             textBoxTotal.TextAlign = HorizontalAlignment.Right;
             // 
             // button1
@@ -335,7 +281,7 @@
             button1.Location = new Point(956, 388);
             button1.Name = "button1";
             button1.Size = new Size(283, 130);
-            button1.TabIndex = 12;
+            button1.TabIndex = 31;
             button1.Text = "FACTURAR";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
@@ -361,9 +307,10 @@
             groupBox2.Location = new Point(659, 19);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(580, 165);
-            groupBox2.TabIndex = 0;
+            groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "Datos del receptor";
+            groupBox2.Enter += groupBox2_Enter;
             // 
             // textBoxEmailReceptor
             // 
@@ -485,7 +432,7 @@
             radioButtonCF.Location = new Point(31, 189);
             radioButtonCF.Name = "radioButtonCF";
             radioButtonCF.Size = new Size(39, 19);
-            radioButtonCF.TabIndex = 13;
+            radioButtonCF.TabIndex = 2;
             radioButtonCF.TabStop = true;
             radioButtonCF.Text = "CF";
             radioButtonCF.UseVisualStyleBackColor = true;
@@ -497,7 +444,7 @@
             radioButtonCFF.Location = new Point(76, 189);
             radioButtonCFF.Name = "radioButtonCFF";
             radioButtonCFF.Size = new Size(47, 19);
-            radioButtonCFF.TabIndex = 13;
+            radioButtonCFF.TabIndex = 3;
             radioButtonCFF.Text = "CCF";
             radioButtonCFF.UseVisualStyleBackColor = true;
             radioButtonCFF.CheckedChanged += radioButtonCFF_CheckedChanged;
@@ -512,11 +459,192 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
+            // textBoxCantidad1
+            // 
+            textBoxCantidad1.Font = new Font("Segoe UI", 11.25F);
+            textBoxCantidad1.Location = new Point(28, 251);
+            textBoxCantidad1.Name = "textBoxCantidad1";
+            textBoxCantidad1.Size = new Size(100, 27);
+            textBoxCantidad1.TabIndex = 7;
+            textBoxCantidad1.KeyPress += solonumeros;
+            // 
+            // textBoxDescripcion1
+            // 
+            textBoxDescripcion1.Font = new Font("Segoe UI", 11.25F);
+            textBoxDescripcion1.Location = new Point(143, 251);
+            textBoxDescripcion1.Name = "textBoxDescripcion1";
+            textBoxDescripcion1.Size = new Size(346, 27);
+            textBoxDescripcion1.TabIndex = 8;
+            // 
+            // textBoxPrecio1
+            // 
+            textBoxPrecio1.Font = new Font("Segoe UI", 11.25F);
+            textBoxPrecio1.Location = new Point(510, 251);
+            textBoxPrecio1.Name = "textBoxPrecio1";
+            textBoxPrecio1.Size = new Size(100, 27);
+            textBoxPrecio1.TabIndex = 9;
+            textBoxPrecio1.KeyPress += solonumeros;
+            // 
+            // textBoxCantidad2
+            // 
+            textBoxCantidad2.Font = new Font("Segoe UI", 11.25F);
+            textBoxCantidad2.Location = new Point(28, 282);
+            textBoxCantidad2.Name = "textBoxCantidad2";
+            textBoxCantidad2.Size = new Size(100, 27);
+            textBoxCantidad2.TabIndex = 10;
+            textBoxCantidad2.KeyPress += solonumeros;
+            // 
+            // textBoxPrecio2
+            // 
+            textBoxPrecio2.Font = new Font("Segoe UI", 11.25F);
+            textBoxPrecio2.Location = new Point(510, 282);
+            textBoxPrecio2.Name = "textBoxPrecio2";
+            textBoxPrecio2.Size = new Size(100, 27);
+            textBoxPrecio2.TabIndex = 12;
+            textBoxPrecio2.KeyPress += solonumeros;
+            // 
+            // textBoxDescripcion2
+            // 
+            textBoxDescripcion2.Font = new Font("Segoe UI", 11.25F);
+            textBoxDescripcion2.Location = new Point(143, 282);
+            textBoxDescripcion2.Name = "textBoxDescripcion2";
+            textBoxDescripcion2.Size = new Size(346, 27);
+            textBoxDescripcion2.TabIndex = 11;
+            // 
+            // textBoxCantidad3
+            // 
+            textBoxCantidad3.Font = new Font("Segoe UI", 11.25F);
+            textBoxCantidad3.Location = new Point(28, 313);
+            textBoxCantidad3.Name = "textBoxCantidad3";
+            textBoxCantidad3.Size = new Size(100, 27);
+            textBoxCantidad3.TabIndex = 13;
+            textBoxCantidad3.KeyPress += solonumeros;
+            // 
+            // textBoxPrecio3
+            // 
+            textBoxPrecio3.Font = new Font("Segoe UI", 11.25F);
+            textBoxPrecio3.Location = new Point(510, 313);
+            textBoxPrecio3.Name = "textBoxPrecio3";
+            textBoxPrecio3.Size = new Size(100, 27);
+            textBoxPrecio3.TabIndex = 15;
+            textBoxPrecio3.KeyPress += solonumeros;
+            // 
+            // textBoxDescripcion3
+            // 
+            textBoxDescripcion3.Font = new Font("Segoe UI", 11.25F);
+            textBoxDescripcion3.Location = new Point(143, 313);
+            textBoxDescripcion3.Name = "textBoxDescripcion3";
+            textBoxDescripcion3.Size = new Size(346, 27);
+            textBoxDescripcion3.TabIndex = 14;
+            // 
+            // textBoxCantidad4
+            // 
+            textBoxCantidad4.Font = new Font("Segoe UI", 11.25F);
+            textBoxCantidad4.Location = new Point(28, 344);
+            textBoxCantidad4.Name = "textBoxCantidad4";
+            textBoxCantidad4.Size = new Size(100, 27);
+            textBoxCantidad4.TabIndex = 16;
+            textBoxCantidad4.KeyPress += solonumeros;
+            // 
+            // textBoxPrecio4
+            // 
+            textBoxPrecio4.Font = new Font("Segoe UI", 11.25F);
+            textBoxPrecio4.Location = new Point(510, 344);
+            textBoxPrecio4.Name = "textBoxPrecio4";
+            textBoxPrecio4.Size = new Size(100, 27);
+            textBoxPrecio4.TabIndex = 18;
+            textBoxPrecio4.KeyPress += solonumeros;
+            // 
+            // textBoxDescripcion4
+            // 
+            textBoxDescripcion4.Font = new Font("Segoe UI", 11.25F);
+            textBoxDescripcion4.Location = new Point(143, 344);
+            textBoxDescripcion4.Name = "textBoxDescripcion4";
+            textBoxDescripcion4.Size = new Size(346, 27);
+            textBoxDescripcion4.TabIndex = 17;
+            // 
+            // textBoxComentarios
+            // 
+            textBoxComentarios.Location = new Point(28, 413);
+            textBoxComentarios.Multiline = true;
+            textBoxComentarios.Name = "textBoxComentarios";
+            textBoxComentarios.Size = new Size(261, 87);
+            textBoxComentarios.TabIndex = 20;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new Font("Segoe UI", 12F);
+            label19.Location = new Point(31, 221);
+            label19.Name = "label19";
+            label19.Size = new Size(86, 21);
+            label19.TabIndex = 4;
+            label19.Text = "CANTIDAD";
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Font = new Font("Segoe UI", 12F);
+            label20.Location = new Point(143, 221);
+            label20.Name = "label20";
+            label20.Size = new Size(109, 21);
+            label20.TabIndex = 5;
+            label20.Text = "DESCRIPCION";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Segoe UI", 12F);
+            label21.Location = new Point(510, 221);
+            label21.Name = "label21";
+            label21.Size = new Size(63, 21);
+            label21.TabIndex = 6;
+            label21.Text = "PRECIO";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Segoe UI", 12F);
+            label22.Location = new Point(28, 388);
+            label22.Name = "label22";
+            label22.Size = new Size(99, 21);
+            label22.TabIndex = 19;
+            label22.Text = "Comentarios";
+            // 
+            // button3
+            // 
+            button3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button3.Location = new Point(510, 388);
+            button3.Name = "button3";
+            button3.Size = new Size(99, 41);
+            button3.TabIndex = 21;
+            button3.Text = "CALCULAR";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1268, 538);
+            Controls.Add(button3);
+            Controls.Add(label21);
+            Controls.Add(label20);
+            Controls.Add(label22);
+            Controls.Add(label19);
+            Controls.Add(textBoxComentarios);
+            Controls.Add(textBoxDescripcion4);
+            Controls.Add(textBoxDescripcion3);
+            Controls.Add(textBoxDescripcion2);
+            Controls.Add(textBoxDescripcion1);
+            Controls.Add(textBoxPrecio4);
+            Controls.Add(textBoxCantidad4);
+            Controls.Add(textBoxPrecio3);
+            Controls.Add(textBoxCantidad3);
+            Controls.Add(textBoxPrecio2);
+            Controls.Add(textBoxCantidad2);
+            Controls.Add(textBoxPrecio1);
+            Controls.Add(textBoxCantidad1);
             Controls.Add(button2);
             Controls.Add(radioButtonCFF);
             Controls.Add(radioButtonCF);
@@ -525,12 +653,9 @@
             Controls.Add(label5);
             Controls.Add(textBoxIva);
             Controls.Add(label4);
-            Controls.Add(textBoxRetencion);
-            Controls.Add(label3);
             Controls.Add(textBoxSumas);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(dataGridView1);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Name = "Form1";
@@ -539,7 +664,6 @@
             Load += Form1_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             ResumeLayout(false);
@@ -549,12 +673,9 @@
         #endregion
 
         private GroupBox groupBox1;
-        private DataGridView dataGridView1;
         private Label label1;
         private Label label2;
         private TextBox textBoxSumas;
-        private Label label3;
-        private TextBox textBoxRetencion;
         private Label label4;
         private TextBox textBoxIva;
         private Label label5;
@@ -585,14 +706,28 @@
         private Label label16;
         private TextBox textBoxNombreReceptor;
         private Label label17;
-        private DataGridViewTextBoxColumn cantidad;
-        private DataGridViewTextBoxColumn descripcion;
-        private DataGridViewTextBoxColumn precio;
-        private DataGridViewTextBoxColumn total;
         private RadioButton radioButtonCF;
         private RadioButton radioButtonCFF;
         private Button button2;
         private TextBox textBoxCodActividad;
         private Label label18;
+        private TextBox textBoxCantidad1;
+        private TextBox textBoxDescripcion1;
+        private TextBox textBoxPrecio1;
+        private TextBox textBoxCantidad2;
+        private TextBox textBoxPrecio2;
+        private TextBox textBoxDescripcion2;
+        private TextBox textBoxCantidad3;
+        private TextBox textBoxPrecio3;
+        private TextBox textBoxDescripcion3;
+        private TextBox textBoxCantidad4;
+        private TextBox textBoxPrecio4;
+        private TextBox textBoxDescripcion4;
+        private TextBox textBoxComentarios;
+        private Label label19;
+        private Label label20;
+        private Label label21;
+        private Label label22;
+        private Button button3;
     }
 }
